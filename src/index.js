@@ -4,9 +4,6 @@ import {Provider} from 'react-redux'
 import App from './components/app';
 import {PersistGate} from 'redux-persist/integration/react'
 import configureStore from './store/persistor';
-const {EventEmitter} = require('fbemitter');
-const emitter = new EventEmitter();
-window.emitter = emitter;
 
 const {store,persistor} = configureStore();
 
