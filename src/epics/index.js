@@ -1,2 +1,2 @@
-import counter from './counter';
+import counter from './app';
 export default [...counter]

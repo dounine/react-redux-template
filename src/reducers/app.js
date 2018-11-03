@@ -2,22 +2,34 @@ import {createActions, handleActions} from 'redux-actions';
 import {filterActions} from 'redux-ignore';
 
 export const actions = createActions({
-    increase: (hello) => (hello),
-    decrease: (amount = 1) => ({amount: -amount})
+    changeText: (text) => ({text}),
+    searchSuccess: (data) => ({data}),
+    searchFailed: (error) => ({error}),
 });
 
+export const types = {
+    changeText: 'changeText',
+    search: 'search',
+    searchSuccess: 'searchSuccess',
+    searchFailed: 'searchFailed',
+};
+
 const defaultState = {
-    value: 0,
-    list: {}
+    name: '',
+    searching: false,
+    list: []
 };
 
 const reducer = handleActions({
-    increase: function (state, action) {
-        state.list.name = 'hello';
-        return {...state, value: state.value + 1}
+    changeText: (state, action) => ({...state, searching: true, name: action.payload.text}),
+    searchSuccess: function (state, action) {
+        return {...state, list: action.payload.data.items, searching: false};
     },
-    decrease: (state, action) => ({...state, value: state.value - 1}),
+    searchFailed: function (state, action) {
+        return {...state, searching: false};
+    },
 }, defaultState);
+
 export default {
     app: filterActions(reducer, Object.keys(actions))
 };

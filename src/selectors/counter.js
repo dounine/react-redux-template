@@ -1,15 +1,13 @@
-import { createSelector } from 'reselect';
+import {createSelector} from 'reselect';
 
-const todosSelector = (state,props) => state.yeah;
+const todosSelector = (state, props) => state.yeah;
 const fSelector = createSelector(
-  [todosSelector],
-  (todos)=>{
-    console.log(`todos`);
-    console.log(todos);
-    return {
-      ...todos
+    [todosSelector],
+    (todos) => {
+        return {
+            ...todos
+        }
     }
-  }
 );
 
 export default fSelector;

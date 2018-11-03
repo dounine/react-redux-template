@@ -1,29 +1,44 @@
 import React from 'react'
 import {connect} from "react-redux";
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Slide from "@material-ui/core/Slide/Slide";
-import Snackbar from "@material-ui/core/Snackbar/Snackbar";
-import Loading from 'react-loading-bar'
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {actions as appAction} from "../reducers/app";
 import 'react-loading-bar/dist/index.css'
 
 class App extends React.Component {
 
     render() {
-        const {classes,active,value} = this.props;
+        const {classes, searching, active, name, list, changeText} = this.props;
         return (
             <div className={classes.root}>
-                value:{value}
-                <Button onClick={this.props.increase}>increase</Button>
-                <Button onClick={this.props.decrease}>decrease</Button>
+                <form noValidate autoComplete="off">
+                    <div>
+                        <TextField
+                            id="search-name"
+                            label="Search name"
+                            className={classes.textField}
+                            value={name}
+                            onChange={({target: {value}}) => changeText(value)}
+                            margin="normal"
+                            variant="filled"
+                        />
+                    </div>
+                </form>
+                {searching && <CircularProgress className={classes.progress}/>}
+                <List>
+                    {
+                        list.map(item => (
+                            <ListItem key={item.login} dense button>
+                                <Avatar alt="Remy Sharp" src={item.avatar_url}/>
+                                <ListItemText primary={item.login}/>
+                            </ListItem>
+                        ))
+                    }
+                </List>
             </div>
         )
     }
@@ -31,8 +46,13 @@ class App extends React.Component {
 
 const styles = theme => ({
     root: {
-        flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
+    },
+    progress: {},
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 200,
     },
 });
 
@@ -46,8 +66,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        increase:()=>dispatch(appAction.increase()),
-        decrease:()=>dispatch(appAction.decrease())
+        changeText: (text) => dispatch(appAction.changeText(text)),
     }
 }
 

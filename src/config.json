@@ -5,7 +5,7 @@
     "wsUrl":"ws://localhost:8888"
   },
   "pro":{
-      "baseUrl":"http://storm1.starsriver.cn:8888",
-      "wsUrl":"ws://storm1.starsriver.cn:8888"
+      "baseUrl":"http://localhost:8889",
+      "wsUrl":"ws://localhost:8889"
   }
 }
