@@ -5,9 +5,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import {actions as appAction} from "../reducers/app";
-import 'react-loading-bar/dist/index.css'
+import LoadingBar from 'react-redux-loading-bar'
 
 class App extends React.Component {
 
@@ -15,6 +14,7 @@ class App extends React.Component {
         const {classes, searching, active, name, list, changeText} = this.props;
         return (
             <div className={classes.root}>
+                <LoadingBar/>
                 <form noValidate autoComplete="off">
                     <div>
                         <TextField
@@ -28,7 +28,7 @@ class App extends React.Component {
                         />
                     </div>
                 </form>
-                {searching && <CircularProgress className={classes.progress}/>}
+                {/*{searching && <CircularProgress className={classes.progress}/>}*/}
                 <List>
                     {
                         list.map(item => (

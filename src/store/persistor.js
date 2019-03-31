@@ -20,7 +20,7 @@ const persistConfig = {
     // whitelist: ['nav'],
 };
 const config = require('../config');
-const isDev = config.model == 'dev';
+const isDev = config.model === 'dev';
 const composeEnhancers = composeWithDevTools({
     // Specify here name, actionsBlacklist, actionsCreators and other options if needed
 });
